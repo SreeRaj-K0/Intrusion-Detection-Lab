@@ -60,15 +60,6 @@ This repository contains the configuration and setup instructions for my home in
    Edit configuration (/usr/local/etc/syslog-ng.conf)
 
 
-
-
-
-2. **Configure syslog-ng:**
-   - Edit syslog-ng configuration file to forward Snort logs to the Splunk Server.
-
-   Edit configuration (/usr/local/etc/syslog-ng.conf)
-
-
 ```
 # Define the source to read Snort alerts from the file
 source s_snort_alert {
@@ -98,6 +89,7 @@ log {
 
 2. **Configure Splunk to Receive Logs:**
 - Configure Splunk to listen on the configured syslog-ng port (514/tcp) for incoming logs.
+  
 
 
 
