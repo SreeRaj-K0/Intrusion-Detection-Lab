@@ -1,4 +1,6 @@
-# Intrusion Detection Lab Setup on VMware
+# Intrusion Detection HOME-LAB Setup on VMware
+![Network Diagram](images/network.png)
+
 
 This repository contains the configuration and setup instructions for my home intrusion detection lab, which is built using VMware virtualization technology. The lab aims to simulate network security monitoring using pfSense, Snort IDS, and Splunk for log analysis.
 
@@ -64,33 +66,37 @@ This repository contains the configuration and setup instructions for my home in
    Edit configuration (/usr/local/etc/syslog-ng.conf)
 
 
+```
+# Define the source to read Snort alerts from the file
+source s_snort_alert {
+  file("/var/log/snort/snort_em43181/alert" follow_freq(1) flags(no-parse));
+};
 
-  ```conf
-   @version: 3.34
-   @include "scl.conf"
+# Define the destination to send logs to Splunk
+destination d_splunk {
+  udp("192.168.4.130" port(514));
+};
 
-   # Sources
-   source s_net {
-       udp(ip(0.0.0.0) port(514));
-   };
-
+# Define the log path for forwarding
+log {
+  source(s_snort_alert);
+  destination(d_splunk);
+};
 
 
 ```
 
 
 
-###Setting up Splunk for Log Analysis
+### Setting up Splunk for Log Analysis
 
 1. **Install Splunk:**
 - Download and install Splunk on a separate VM (e.g., Splunk Server).
 
 2. **Configure Splunk to Receive Logs:**
-- Configure Splunk to listen on the configured syslog-ng port (e.g., 514/tcp) for incoming logs.
+- Configure Splunk to listen on the configured syslog-ng port (514/tcp) for incoming logs.
 
-3. **Create Dashboards and Alerts:**
-- In Splunk, create dashboards to visualize Snort alerts and other logs.
-- Configure alerts based on Snort detections for proactive monitoring.
+
 
 ## Conclusion
 
