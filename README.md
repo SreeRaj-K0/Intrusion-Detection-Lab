@@ -8,7 +8,7 @@ This repository contains the configuration and setup instructions for my home in
 
 - **WAN:** 176.144.134/24
 - **LAN:** 192.168.3.128/24
-- **Attacker VM:** 192.168.3.128
+- **Attacker VM:** 192.168.2.128
 - **Victim VM:** 192.168.5.130
 - **Splunk Server:** 192.168.4.130
 
@@ -26,7 +26,9 @@ This repository contains the configuration and setup instructions for my home in
 1. **Download and Install pfSense:**
    - Download the pfSense ISO from the official website.
    - Install pfSense on a VMware virtual machine, configuring WAN and LAN interfaces.
+
      ![Network Diagram](images/pf-sense-setup.png)
+
       ![Network Diagram](images/pf-sense-conf.png)
      
 
@@ -36,23 +38,30 @@ This repository contains the configuration and setup instructions for my home in
 
 3. **Install and Configure Snort:**
    - Navigate to the pfSense Package Manager
-      ![Network Diagram](images/sort_pkg.png)
-   - Install the Snort package and configure it to monitor traffic on specified interfaces.
+
+     ![Network Diagram](images/sort_pkg.png)
+
+  - Install the Snort package and configure it to monitor traffic on specified interfaces.
 
 ### Configuring Snort IDS
 
 1. **Snort Rules and Alerts:**
    - Customize Snort rules to detect specific threats.
    - Configure alerts to trigger on suspicious network activity.
+   
+
    ![rukle](images/rule.png)
 
      
 
-2. **Testing Snort:**
+3. **Testing Snort:**
    - Generate test traffic (e.g., using Kali Linux as an attacker) to trigger Snort alerts.
+   
    ![Network Diagram](images/Kali_testing.png)
 
-   - Verify Snort's functionality by checking alert logs.
+
+    - Verify Snort's functionality by checking alert logs.
+
      ![Network Diagram](images/nmap_scan.png)
 
 
@@ -60,6 +69,7 @@ This repository contains the configuration and setup instructions for my home in
 
 1. **Install syslog-ng:**
    - SSH into pfSense and install syslog-ng using pkg package manager.
+
      ![Network Diagram](images/ssh-pfsense.png)
      
      ![Network Diagram](images/install_syslog.png)
@@ -67,6 +77,9 @@ This repository contains the configuration and setup instructions for my home in
 
 2. **Configure syslog-ng:**
    - Edit syslog-ng configuration file to forward Snort logs to the Splunk Server.
+  
+     ![Network Diagram](images/syslog-conf.png)
+
 
    Edit configuration (/usr/local/etc/syslog-ng.conf)
 
@@ -108,6 +121,8 @@ log {
 ![Network Diagram](images/splunk3.png)  
 
 ![Network Diagram](images/splunk4.png)
+
+![Network Diagram](images/splunk_event2.png)
 
 
 
