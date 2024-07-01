@@ -1,93 +1,103 @@
+# Intrusion Detection Lab Setup on VMware
 
-# Simple Intrusion Detection Lab With pfSense, Snort, Splunk
+This repository contains the configuration and setup instructions for my home intrusion detection lab, which is built using VMware virtualization technology. The lab aims to simulate network security monitoring using pfSense, Snort IDS, and Splunk for log analysis.
 
-![Example Image](images/network.png)
+## Network Configuration
+
+- **WAN:** 176.144.134/24
+- **LAN:** 192.168.3.128/24
+- **Attacker VM:** 192.168.3.128
+- **Victim VM:** 192.168.5.130
+- **Splunk Server:** 192.168.4.130
+
+## Components Used
+
+- **pfSense Firewall:** Acts as the network gateway and firewall.
+- **Snort IDS:** Installed on pfSense to detect and alert on suspicious network activity.
+- **Splunk:** Used for centralized log management and analysis.
+- **VMware:** Virtualization platform used to host and manage the lab environment.
+
+## Lab Setup Steps
+
+### Setting up pfSense Firewall
+
+1. **Download and Install pfSense:**
+   - Download the pfSense ISO from the official website.
+   - Install pfSense on a VMware virtual machine, configuring WAN and LAN interfaces.
+
+2. **Configure Firewall Rules:**
+   - Access the pfSense web interface (default IP: 192.168.1.1).
+   - Create firewall rules to allow/deny traffic between WAN, LAN, and other networks.
+
+3. **Install and Configure Snort:**
+   - Navigate to the pfSense Package Manager.
+   - Install the Snort package and configure it to monitor traffic on specified interfaces.
+
+### Configuring Snort IDS
+
+1. **Snort Rules and Alerts:**
+   - Customize Snort rules to detect specific threats.
+   - Configure alerts to trigger on suspicious network activity.
+
+2. **Testing Snort:**
+   - Generate test traffic (e.g., using Kali Linux as an attacker) to trigger Snort alerts.
+   - Verify Snort's functionality by checking alert logs.
 
 
-## Objective
+### Setting up syslog-ng for Log Forwarding
 
-This project aims to demonstrate a practical setup of an intrusion detection lab using pfSense for network management, Snort for intrusion detection, and Splunk for log analysis. The objective is to showcase proficiency in configuring and integrating these tools to monitor and analyze network traffic for potential threats.
+1. **Install syslog-ng:**
+   - SSH into pfSense and install syslog-ng using pkg package manager.
 
-## Learning Goals
+2. **Configure syslog-ng:**
+   - Edit syslog-ng configuration file to forward Snort logs to the Splunk Server.
 
-- Gain hands-on experience in configuring pfSense for network management.
-- Implement and customize Snort rules for intrusion detection.
-- Set up Splunk for log aggregation, analysis, and visualization of Snort alerts.
-- Practice monitoring network traffic and responding to simulated cybersecurity incidents.
-- Showcase effective documentation and communication of technical setups and procedures.
+   Edit configuration (/usr/local/etc/syslog-ng.conf)
 
-## Features
 
-- **Network Configuration**: Setup of LAN and WAN interfaces on pfSense.
-- **Intrusion Detection**: Utilization of Snort for real-time threat detection.
-- **Log Analysis**: Integration of Splunk for centralized log management and analysis of Snort alerts.
-- **Visualization**: Creation of custom dashboards in Splunk for visualizing security incidents.
 
-## Setup Instructions
 
-Follow these steps to replicate the intrusion detection lab environment:
 
-### 1. Setting Up pfSense
+2. **Configure syslog-ng:**
+   - Edit syslog-ng configuration file to forward Snort logs to the Splunk Server.
 
-1.1. **Download pfSense**:
-   - Visit the [pfSense website](https://www.pfsense.org/) and download the latest stable version suitable for your hardware or virtual machine platform.
+   Edit configuration (/usr/local/etc/syslog-ng.conf)
 
-1.2. **Install pfSense**:
-   - Follow the installation guide provided by pfSense to install the operating system on your chosen platform.
-   
-1.3. **Configure LAN and WAN Interfaces**:
-   - Access the pfSense web interface using your web browser (default IP: `192.168.1.1`).
-   - Navigate to `Interfaces` > `Assignments` and configure LAN (e.g., `192.168.3.0/24`) and WAN interfaces (e.g., `176.144.134.0/24`) according to your network setup.
 
-1.4. **Install Snort**:
-   - Go to `System` > `Package Manager` > `Available Packages`.
-   - Search for "Snort" and click `Install` to add Snort to your pfSense installation.
 
-### 2. Configuring Snort
+  ```conf
+   @version: 3.34
+   @include "scl.conf"
 
-2.1. **Enable Snort on Interfaces**:
-   - Navigate to `Services` > `Snort` and configure Snort to monitor selected interfaces (e.g., LAN and WAN).
-   - Customize detection and prevention rules based on your security requirements.
+   # Sources
+   source s_net {
+       udp(ip(0.0.0.0) port(514));
+   };
 
-2.2. **Configure Snort Alerts**:
-   - Define alert settings to log and respond to potential network threats.
-   - Verify Snort is actively monitoring and generating alerts for detected incidents.
 
-### 3. Installing and Configuring Splunk
 
-3.1. **Download Splunk**:
-   - Visit the [Splunk website](https://www.splunk.com/) and download the latest version of Splunk Enterprise or Splunk Free.
+```
 
-3.2. **Install Splunk**:
-   - Follow the installation instructions provided by Splunk to install the software on a dedicated server or virtual machine.
 
-3.3. **Configure Splunk Forwarder**:
-   - Optionally, install Splunk Universal Forwarder on pfSense or a separate machine to forward Snort logs to Splunk.
-   - Configure inputs.conf on Splunk Forwarder to collect Snort logs from pfSense.
 
-3.4. **Create Splunk Index and Dashboard**:
-   - Access the Splunk web interface (default URL: `http://localhost:8000`) and log in.
-   - Create an index for Snort logs and configure it to receive and index incoming logs.
-   - Design custom dashboards in Splunk to visualize and analyze Snort alerts effectively.
+###Setting up Splunk for Log Analysis
 
-## Usage
+1. **Install Splunk:**
+- Download and install Splunk on a separate VM (e.g., Splunk Server).
 
-Upon completion of setup, use the lab environment to:
+2. **Configure Splunk to Receive Logs:**
+- Configure Splunk to listen on the configured syslog-ng port (e.g., 514/tcp) for incoming logs.
 
-- Monitor network traffic and detect potential intrusions in real-time.
-- Analyze and investigate Snort alerts to identify security incidents.
-- Practice incident response procedures in a controlled environment.
-
-## Contributing
-
-Contributions and feedback are welcome! If you have suggestions for improvements or additional features, please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+3. **Create Dashboards and Alerts:**
+- In Splunk, create dashboards to visualize Snort alerts and other logs.
+- Configure alerts based on Snort detections for proactive monitoring.
 
 ## Conclusion
 
-This documentation serves to showcase proficiency in setting up and managing an intrusion detection lab using pfSense, Snort, and Splunk. It demonstrates practical skills in network security monitoring, log analysis, and incident response, making it a valuable resource for cybersecurity professionals and enthusiasts alike.
+This setup provides a practical environment for learning and practicing intrusion detection techniques using pfSense, Snort IDS, syslog-ng, and Splunk. By following these steps, you can effectively simulate and analyze network security incidents in a controlled VMware environment.
 
-By documenting this project, I aim to highlight my ability to effectively deploy and manage cybersecurity tools in a practical setting, preparing me for roles that require hands-on experience and technical expertise in intrusion detection and response.
+
+
+
+
+
