@@ -109,7 +109,7 @@ log {
 ### Setting up Splunk for Log Analysis
 
 1. **Install Splunk:**
-- Download and install Splunk on a separate VM (e.g., Splunk Server).
+- Download and install Splunk on a separate VM (e.g., Ubuntu Server).
 
 2. **Configure Splunk to Receive Logs:**
 - Configure Splunk to listen on the configured syslog-ng port (514/tcp) for incoming logs.
@@ -122,7 +122,7 @@ log {
 
 ![Network Diagram](images/splunk4.png)
 
-![Network Diagram](images/splunk_event2.png)
+![Network Diagram](images/splunk-event2.png)
 
 
 
