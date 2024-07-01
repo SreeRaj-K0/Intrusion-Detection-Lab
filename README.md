@@ -1,6 +1,9 @@
 
 # Simple Intrusion Detection Lab With pfSense, Snort, Splunk
 
+![Example Image](images/network.png)
+
+
 ## Objective
 
 This project aims to demonstrate a practical setup of an intrusion detection lab using pfSense for network management, Snort for intrusion detection, and Splunk for log analysis. The objective is to showcase proficiency in configuring and integrating these tools to monitor and analyze network traffic for potential threats.
