@@ -31,11 +31,12 @@ This repository contains the configuration and setup instructions for my home in
      
 
 2. **Configure Firewall Rules:**
-   - Access the pfSense web interface (default IP: 192.168.1.1).
+   - Access the pfSense web interface 192.168.3.128 from Kali
    - Create firewall rules to allow/deny traffic between WAN, LAN, and other networks.
 
 3. **Install and Configure Snort:**
-   - Navigate to the pfSense Package Manager.
+   - Navigate to the pfSense Package Manager
+      ![Network Diagram](images/sort_pkg.png)
    - Install the Snort package and configure it to monitor traffic on specified interfaces.
 
 ### Configuring Snort IDS
@@ -43,16 +44,26 @@ This repository contains the configuration and setup instructions for my home in
 1. **Snort Rules and Alerts:**
    - Customize Snort rules to detect specific threats.
    - Configure alerts to trigger on suspicious network activity.
+   ![rukle](images/rule.png)
+
+     
 
 2. **Testing Snort:**
    - Generate test traffic (e.g., using Kali Linux as an attacker) to trigger Snort alerts.
+   ![Network Diagram](images/Kali_testing.png)
+
    - Verify Snort's functionality by checking alert logs.
+     ![Network Diagram](images/nmap_scan.png)
 
 
 ### Setting up syslog-ng for Log Forwarding
 
 1. **Install syslog-ng:**
    - SSH into pfSense and install syslog-ng using pkg package manager.
+     ![Network Diagram](images/ssh-pfsense.png)
+     
+     ![Network Diagram](images/install_syslog.png)
+
 
 2. **Configure syslog-ng:**
    - Edit syslog-ng configuration file to forward Snort logs to the Splunk Server.
@@ -90,6 +101,15 @@ log {
 2. **Configure Splunk to Receive Logs:**
 - Configure Splunk to listen on the configured syslog-ng port (514/tcp) for incoming logs.
   
+![Network Diagram](images/solunk1.png)
+
+![Network Diagram](images/splunk2.png)
+
+![Network Diagram](images/splunk3.png)  
+
+![Network Diagram](images/splunk4.png)
+
+
 
 
 
