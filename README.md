@@ -26,6 +26,9 @@ This repository contains the configuration and setup instructions for my home in
 1. **Download and Install pfSense:**
    - Download the pfSense ISO from the official website.
    - Install pfSense on a VMware virtual machine, configuring WAN and LAN interfaces.
+     ![Network Diagram](images/pf-sense-setup.png)
+      ![Network Diagram](images/pf-sense-conf.png)
+     
 
 2. **Configure Firewall Rules:**
    - Access the pfSense web interface (default IP: 192.168.1.1).
