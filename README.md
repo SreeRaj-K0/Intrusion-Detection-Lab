@@ -1,8 +1,8 @@
-# Intrusion Detection HOME-LAB Setup on VMware
+# Intrusion Detection HOME-LAB 
 ![Network Diagram](images/network.png)
 
 
-This repository contains the configuration and setup instructions for my home intrusion detection lab, which is built using VMware virtualization technology. The lab aims to simulate network security monitoring using pfSense, Snort IDS, and Splunk for log analysis.
+This repository contains the configuration and setup instructions for my home intrusion detection lab, which is built using VMware . The lab aims to simulate network security monitoring using pfSense, Snort IDS, and Splunk for log analysis.
 
 ## Network Configuration
 
@@ -24,7 +24,7 @@ This repository contains the configuration and setup instructions for my home in
 ### Setting up pfSense Firewall
 
 1. **Download and Install pfSense:**
-   - Download the pfSense ISO from the official website.
+   - Downloaded  pfSense ISO from the official website.
    - Install pfSense on a VMware virtual machine, configuring WAN and LAN interfaces.
 
      ![Network Diagram](images/pf-sense-setup.png)
@@ -46,7 +46,7 @@ This repository contains the configuration and setup instructions for my home in
 ### Configuring Snort IDS
 
 1. **Snort Rules and Alerts:**
-   - Customize Snort rules to detect specific threats.
+   - Set-up Snort rules to detect threats.
    - Configure alerts to trigger on suspicious network activity.
    
 
@@ -55,12 +55,12 @@ This repository contains the configuration and setup instructions for my home in
      
 
 3. **Testing Snort:**
-   - Generate test traffic (e.g., using Kali Linux as an attacker) to trigger Snort alerts.
+   - Generate traffic using Kali Linux as an attacker to trigger Snort alerts.
    
    ![Network Diagram](images/Kali_testing.png)
 
 
-    - Verify Snort's functionality by checking alert logs.
+    - Verified  Snort's functionality by checking alert logs.
 
      ![Network Diagram](images/nmap_scan.png)
 
@@ -109,7 +109,7 @@ log {
 ### Setting up Splunk for Log Analysis
 
 1. **Install Splunk:**
-- Download and install Splunk on a separate VM (e.g., Ubuntu Server).
+-  installed Splunk on a separate Ubuntu Server
 
 2. **Configure Splunk to Receive Logs:**
 - Configure Splunk to listen on the configured syslog-ng port (514/tcp) for incoming logs.
@@ -130,8 +130,7 @@ log {
 
 ## Conclusion
 
-This setup provides a practical environment for learning and practicing intrusion detection techniques using pfSense, Snort IDS, syslog-ng, and Splunk. By following these steps, you can effectively simulate and analyze network security incidents in a controlled VMware environment.
-
+This setup offers a hands-on environment for practicing and learning intrusion detection techniques using pfSense, Snort IDS, syslog-ng, and Splunk. By simulating network security incidents in a controlled VMware environment, it provides a practical platform for effective analysis and response to potential threats.
 
 
 
